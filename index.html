@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shorts Video Formatter</title>
+  <meta name="description" content="Format local videos into vertical short-form layouts for YouTube Shorts, TikTok, Instagram Reels, and social media." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Local browser app • no uploads</p>
+        <h1>Shorts Video Formatter</h1>
+        <p class="lede">Pick a video, choose a social format, preview the crop, then export a ready-to-upload short video.</p>
+      </div>
+      <div class="privacy-card">
+        <strong>Privacy-first</strong>
+        <span>Your video stays on your device. Processing happens in your browser.</span>
+      </div>
+    </section>
+
+    <section class="grid">
+      <form class="panel controls" id="controls">
+        <label class="file-picker">
+          <input id="fileInput" type="file" accept="video/*" />
+          <span class="file-button">Choose video</span>
+          <span id="fileName" class="file-name">No file selected</span>
+        </label>
+
+        <div class="field two-col">
+          <label>
+            Format
+            <select id="formatSelect">
+              <option value="shorts" selected>YouTube Shorts / Reels / TikTok — 9:16</option>
+              <option value="square">Square post — 1:1</option>
+              <option value="landscape">YouTube / landscape — 16:9</option>
+            </select>
+          </label>
+          <label>
+            Quality
+            <select id="qualitySelect">
+              <option value="720">720 × 1280</option>
+              <option value="1080" selected>1080 × 1920</option>
+              <option value="1440">1440 × 2560</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="field two-col">
+          <label>
+            Fit style
+            <select id="fitSelect">
+              <option value="cover" selected>Fill frame, crop edges</option>
+              <option value="contain">Fit full video, add background</option>
+            </select>
+          </label>
+          <label>
+            Background
+            <select id="backgroundSelect">
+              <option value="blur" selected>Blurred copy</option>
+              <option value="dark">Dark matte</option>
+              <option value="light">Light matte</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="field two-col">
+          <label>
+            Start time <span id="startLabel">0.0s</span>
+            <input id="startRange" type="range" min="0" max="0" step="0.1" value="0" />
+          </label>
+          <label>
+            End time <span id="endLabel">0.0s</span>
+            <input id="endRange" type="range" min="0" max="0" step="0.1" value="0" />
+          </label>
+        </div>
+
+        <div class="field two-col">
+          <label>
+            Frame rate
+            <select id="fpsSelect">
+              <option value="auto" selected>Auto / source timing</option>
+              <option value="24">24 fps</option>
+              <option value="30">30 fps</option>
+              <option value="60">60 fps</option>
+            </select>
+          </label>
+          <label>
+            Bitrate
+            <select id="bitrateSelect">
+              <option value="auto" selected>Auto / browser default</option>
+              <option value="5000000">5 Mbps</option>
+              <option value="8000000">8 Mbps</option>
+              <option value="12000000">12 Mbps</option>
+              <option value="20000000">20 Mbps</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="actions">
+          <button type="button" id="playPreviewBtn" disabled>Play preview</button>
+          <button type="button" id="exportBtn" class="primary" disabled>Export video</button>
+        </div>
+
+        <div class="progress-wrap" aria-live="polite">
+          <div class="progress-bar"><span id="progressFill"></span></div>
+          <p id="statusText">Choose a video to begin.</p>
+        </div>
+
+        <a id="downloadLink" class="download hidden" download="short-video.webm">Download formatted video</a>
+      </form>
+
+      <section class="panel preview-panel">
+        <div class="preview-header">
+          <div>
+            <h2>Preview</h2>
+            <p id="canvasInfo">1080 × 1920 vertical canvas</p>
+          </div>
+          <button type="button" id="snapshotBtn" disabled>Save thumbnail</button>
+        </div>
+        <canvas id="previewCanvas" width="1080" height="1920"></canvas>
+        <video id="sourceVideo" class="hidden" playsinline crossorigin="anonymous"></video>
+      </section>
+    </section>
+
+    <section class="panel notes">
+      <h2>Tips</h2>
+      <p>For YouTube Shorts, use the 9:16 preset. By default, the app does not force a custom frame rate or bitrate; those controls stay on Auto unless you choose a specific value. Exports happen in real time, so a 60-second video usually takes about 60 seconds to render. Chrome and Edge typically work best. If MP4 recording is unavailable in your browser, the app exports WebM, which YouTube supports.</p>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
